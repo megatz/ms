@@ -37,10 +37,12 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
+		http.headers().frameOptions().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
 		http.authorizeRequests()
 				.antMatchers("/auth/login").permitAll()
+				.antMatchers("/h2-console/**").permitAll()
 				.anyRequest().authenticated();
 
         http.exceptionHandling()
